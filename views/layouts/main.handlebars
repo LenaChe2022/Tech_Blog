@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Blog</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="">
+            The Tech Blog
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a href="#" class="navbar-item">
+              Home
+            </a>
+      
+            <a href="#" class="navbar-item">
+                Dashboard
+            </a>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                {{#if logged_in}}
+                <a href="/profile" class="button is-light">logout</a>
+                {{else}}
+                 <a href="/login" class="button is-light">logoin</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    
+  </header>
+<br>
+<br>
+<main>
+
+  {{!-- <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <a href="">Post Title </a>
+      </p>
+      <button class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        Post text
+        
+        <br>
+        Posted by User
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </div>
+    <footer class="card-footer">
+      
+    </footer>
+  </div> --}}
+
+{{{body}}}
+  
+   
+  </main>
+
+  
+</body>
+
+</html>
