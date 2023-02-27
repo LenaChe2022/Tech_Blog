@@ -1,5 +1,5 @@
 {
-  "name": "crowd-funding",
+  "name": "tech_blog",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -25,5 +25,13 @@
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "prettier": "^2.1.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LenaChe2022/Tech_Blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LenaChe2022/Tech_Blog/issues"
+  },
+  "homepage": "https://github.com/LenaChe2022/Tech_Blog#readme"
 }
