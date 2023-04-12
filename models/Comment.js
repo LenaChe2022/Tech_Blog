@@ -1,8 +1,9 @@
+// importing required files and packages
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Comment extends Model {}
-
+// defining columns
 Comment.init(
   {
     id: {
@@ -13,6 +14,7 @@ Comment.init(
     },
     content: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     date_created: {
       type: DataTypes.DATE,
