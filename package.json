@@ -1,16 +1,17 @@
 {
   "name": "tech_blog",
   "version": "1.0.0",
-  "description": "",
+  "description": "CMS-style blog site where developers can publish their blog posts and comment other developers posts",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "seed": "node seeds/seed.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["CMS-style blog",
+   "MVC"],
+  "author": "Elena Chernousova",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",
