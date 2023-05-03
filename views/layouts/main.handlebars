@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tech Blog</title>
   <link rel="stylesheet" href="/public/css/style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
 </head>
 
 <body>
@@ -23,16 +23,20 @@
             <a href="/" class="navbar-item is-size-5 has-text-weight-bold">
               Home
             </a>
-      
-            <a href="/post" class="navbar-item is-size-5 has-text-weight-bold">
-                Dashboard
+            {{#if logged_in}}
+            <a href="/posts/{{user_id}}" class="navbar-item is-size-5 has-text-weight-bold">
+                <strong>Dashboard</strong>
             </a>
-      
+            {{else}}
+            <a href="/login" class="navbar-item is-size-5 has-text-weight-bold">
+                <strong>Dashboard</strong>
+            </a>
+            {{/if}}
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
                 {{#if logged_in}}
-                <a href="/profile" class="button is-dark is-size-5 has-text-weight-bold">Logout</a>
+                <a id="logout" class="button is-dark is-size-5 has-text-weight-bold">Logout</a>
                 {{else}}
                  <a href="/login" class="button is-dark is-size-5 has-text-weight-bold">Login</a>
                  {{/if}}
@@ -43,9 +47,9 @@
       </nav>
     
   </header>
-<br>
-<br>
-<main class="m-6">
+  <br>
+  <br>
+  <main class="m-6">
 
   {{!-- <div class="card">
     <header class="card-header">
@@ -73,21 +77,22 @@
     </footer>
   </div> --}}
 
-{{{body}}}
+  {{{body}}}
   
    
-  </main>
-
-  
-</body>
-
-{{#if logged_in}}
+   </main>
+    {{#if logged_in}}
     <footer class="is-align-items-center m-3">
-  <a href="/newpost" class="button is-medium is-fullwidth is-dark has-text-weight-bold is-responsive">
-    + New post
-  </a>
-</footer>
- {{/if}}
-
+     <a href="/newpost" class="button is-medium is-fullwidth is-dark has-text-weight-bold is-responsive">
+      + New post
+     </a>
+    </footer>
+    {{/if}}
+  
+  {{#if logged_in}}
+    <script src="/js/logout.js"></script>
+  {{/if}}  
+    <script src="/js/main.js"></script>
+</body>
 
 </html>
