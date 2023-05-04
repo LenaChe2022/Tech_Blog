@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
@@ -34,5 +34,35 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+//get all posts
+router.get("/", async (req, res) => {
+  try {
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Comment,
+          attributes: ["content", "user_id", "date_created"],
+          include: [User],
+        },
+      ],
+    });
+    if (postData) {
+      res.status(200).json(postData); 
+    } else {
+      res.status(400).json({message: "No post data found"})
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+//TODO: find one post
+
+//TODO: update post
 
 module.exports = router;

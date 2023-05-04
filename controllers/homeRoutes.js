@@ -5,7 +5,7 @@ const withAuth = require('../utils/auth');
 //render the login view
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/');
     return;
   }
 
@@ -27,15 +27,15 @@ router.get('/logout', (req, res) => {
 router.get('/', async (req, res) => {
   try {
 //ADDED code for setting session when sign in    
-    // let userId = null;
-    // console.log(req?.user?.dataValues);
-    // if (req?.user?.dataValues?.id) {
-    //   userId = req.user.dataValues.id;
-    //   req.session.save(() => {
-    //     req.session.user_id = req.user.dataValues.id;
-    //     req.session.logged_in = true;
-    //   });
-    // }
+    let userId = null;
+    console.log(req?.user?.dataValues);
+    if (req?.user?.dataValues?.id) {
+      userId = req.user.dataValues.id;
+      req.session.save(() => {
+        req.session.user_id = req.user.dataValues.id;
+        req.session.logged_in = true;
+      });
+    }
     // Get all posts and JOIN with user data
     const postsData = await Post.findAll({
       include: [
@@ -94,7 +94,7 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -104,7 +104,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: true
     });
