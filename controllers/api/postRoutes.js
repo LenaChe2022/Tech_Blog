@@ -47,12 +47,13 @@ router.get("/", async (req, res) => {
         {
           model: Comment,
           attributes: ["content", "user_id", "date_created"],
-          include: [User],
+          // include: [User],
         },
       ],
     });
     if (postData) {
       res.status(200).json(postData); 
+      
     } else {
       res.status(400).json({message: "No post data found"})
     }
