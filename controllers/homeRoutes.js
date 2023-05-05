@@ -123,11 +123,11 @@ router.get('/dashboard', async (req, res) => {
           model: User,
           attributes: ["name"],
         },
-        // {
-        //   model: Comment,
-        //   // attributes: ["content", "date_created", "user_id"],
-        //   include: [User]
-        // },
+        {
+          model: Comment,
+          // attributes: ["content", "date_created", "user_id"],
+          include: [User]
+        },
       ],
     });
 
