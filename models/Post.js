@@ -1,8 +1,9 @@
+// importing required files and packages
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Post extends Model {}
-
+// defining columns
 Post.init(
   {
     id: {
@@ -16,7 +17,7 @@ Post.init(
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     date_created: {
       type: DataTypes.DATE,

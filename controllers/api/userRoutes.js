@@ -1,9 +1,15 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// route for adding new user
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
+    // if (userData) {
+    //   res.status(200).json({ message: "User created!"});
+    // } else {
+    //   res.status(400).json({ message: "insufficient data"});
+    // }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
@@ -11,11 +17,13 @@ router.post('/', async (req, res) => {
 
       res.status(200).json(userData);
     });
+    
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
+// route for login
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { name: req.body.name } });
@@ -48,6 +56,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// logout route
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {

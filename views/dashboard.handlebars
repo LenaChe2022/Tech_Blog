@@ -1,0 +1,27 @@
+
+{{#each post as |posts|}}
+<div class="card column m-2">
+    <header class="card-header">
+      <a href="/post/{{user_id}}/{{post_id}}">
+       <p class="card-header-title">
+        {{post.title}}
+       </p>
+      
+       <p class="card-header-title is-justify-content-flex-end">Created By
+        {{post.user.name}}
+        at
+        {{format_date post.date_created}}
+       </p>
+      </a>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <p>{{post.content}}</p>
+      </div>
+    </div>
+    <footer class="card-footer">
+      
+
+    </footer>
+</div>
+{{/each}}
