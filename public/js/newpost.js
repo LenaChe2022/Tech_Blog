@@ -1,7 +1,7 @@
 const submitFormHandler = async (event) => {
     event.preventDefault();
 
-    // Collect values from the login form
+    // Collect values from the form
     const title = document.querySelector("#title").value.trim();
     const content = document.querySelector("#description").value.trim();
 
