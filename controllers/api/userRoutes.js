@@ -5,11 +5,11 @@ const { User } = require('../../models');
 router.post('/', async (req, res) => {
   try {
     const userData = await User.create(req.body);
-    if (userData) {
-      res.status(200).json({ message: "User created!"});
-    } else {
-      res.status(400).json({ message: "insufficient data"});
-    }
+    // if (userData) {
+    //   res.status(200).json({ message: "User created!"});
+    // } else {
+    //   res.status(400).json({ message: "insufficient data"});
+    // }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
