@@ -1,27 +1,28 @@
-
-{{#each post as |posts|}}
-<div class="card column m-2">
+<!-- Loop over each object in the posts array -->
+{{#each posts as |post|}}
+<div class="card m-3">
     <header class="card-header">
-      <a href="/post/{{user_id}}/{{post_id}}">
-       <p class="card-header-title">
-        {{post.title}}
-       </p>
-      
-       <p class="card-header-title is-justify-content-flex-end">Created By
-        {{post.user.name}}
-        at
-        {{format_date post.date_created}}
-       </p>
-      </a>
+      <p class="card-header-title">
+        <a href="/post/{{post.id}}">{{post.title}} </a>
+      </p>
+      <button class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
     </header>
     <div class="card-content">
       <div class="content">
-        <p>{{post.content}}</p>
+        {{post.content}}
+        
+        <br>
+        Posted by {{post.user.name}}
+        <br>
+        <time datetime="2016-1-1">{{format_date post.date_created}}</time>
       </div>
     </div>
     <footer class="card-footer">
       
-
     </footer>
 </div>
 {{/each}}

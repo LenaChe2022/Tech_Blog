@@ -117,16 +117,17 @@ router.get('/dashboard', async (req, res) => {
     // Get all posts and JOIN with user data
     const postData = await Post.findAll({
       where: { user_id: req.session.user_id },
+      // where: { user_id: req.session.user_id },
       inclide: [
         {
           model: User,
           attributes: ["name"],
         },
-        {
-          model: Comment,
-          // attributes: ["content", "date_created", "user_id"],
-          include: [User]
-        }
+        // {
+        //   model: Comment,
+        //   // attributes: ["content", "date_created", "user_id"],
+        //   include: [User]
+        // },
       ],
     });
 
@@ -135,7 +136,7 @@ router.get('/dashboard', async (req, res) => {
     res.render('dashboard', {
       posts,
       logged_in: req.session.logged_in,
-      // user_id: req.session.user_id,
+      user_id: req.session.user_id,
     });
   } catch (err) {
     res.status(500).json(err);
