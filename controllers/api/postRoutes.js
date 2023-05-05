@@ -65,6 +65,34 @@ router.get("/", async (req, res) => {
 });
 
 //TODO: find one post
+router.get('/:postId', async (req,res) => {
+   try {
+    const postData = await Post.findAll({
+      where: {
+        id: req.params.postId,
+
+      },
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Comment,
+          attributes: ["content", "user_id", "date_created"],
+        },  
+      ], 
+    });
+    if (postData) {
+      res.status(200).json(postData); 
+      
+       } else {
+        res.status(400).json({message: "No post data found"})
+       }
+    } catch (err) {
+      res.status(400);json(err);
+    } 
+});
 
 //TODO: update post
 

@@ -67,10 +67,10 @@ router.get('/', async (req, res) => {
 
 // TODO include comments
 //Show one post
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:postId', async (req, res) => {
   try {
-    const postsData = await Post.findByPk(req.params.id, {
-      include: [
+    const postsData = await Post.findByPk(req.params.postId,
+      {include: [
         {
           model: User,
           attributes: ['name'],
@@ -85,8 +85,10 @@ router.get('/post/:id', async (req, res) => {
 
     const post = postsData.get({ plain: true });
 
+    console.log(post);
+
     res.render('post', {
-      ...post,
+      post,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -97,7 +99,20 @@ router.get('/post/:id', async (req, res) => {
 
 //render users dashboard:
 router.get('/dashboard', withAuth, async (req, res) => {
+
   try {
+    //ADDED code for setting session when sign in
+    let userId = null;
+    console.log(req?.user?.dataValues);
+    if (req?.user?.dataValues?.id) {
+      userId = req.user.dataValues.id;
+      req.session.save(() => {
+        req.session.user_id = req.user.dataValues.id;
+        req.session.logged_in = true;
+      });
+    }
+
+    // Get all posts and JOIN with user data
     const postData = await Post.findAll({
       where: { user_id: req.session.user_id },
       inclide: [
