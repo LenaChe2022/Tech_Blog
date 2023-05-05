@@ -37,8 +37,20 @@
         ></textarea>
       </div>
     </div>
-  
+      {{!-- hidden inputs for addind comment --}}
+       <input 
+          type="hidden"
+          class="form-control"
+          id="user_id"
+          value={{user_id}}
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="post_id"
+          value={{post.id}}
+        />
     <button type="submit" class="button is-large">Submit Comment</button>
   </form>
 
-<script src="./js/comment.js"></script>
+<script src="../js/comment.js"></script>
