@@ -17,23 +17,24 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 //DELETE one post
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:postId', async (req, res) => {
   try {
-    const postData = await Post.destroy({
+    const deletePost = await Post.destroy({
       where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
+        id: req.params.postId,
+        // user_id: req.session.user_id,
       },
     });
 
-    if (!postData) {
-      res.status(404).json({ message: 'No post found with this id!' });
-      return;
-    }
+    if (deletePost) {
+      res.status(200).json({ message: 'Post Deleted!' });
+      // return;
+    } else {
 
-    res.status(200).json(postData);
+    res.status(400).json({ message: 'No post found with this id!' });
+    }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
@@ -48,8 +49,8 @@ router.get("/", async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["content", "user_id", "date_created"],
-          // include: [User],
+          // attributes: ["content", "user_id", "date_created"],
+          include: [User],
         },
       ],
     });
@@ -79,7 +80,8 @@ router.get('/:postId', async (req,res) => {
         },
         {
           model: Comment,
-          attributes: ["content", "user_id", "date_created"],
+          // attributes: ["content", "user_id", "date_created"],
+          include: [User],
         },  
       ], 
     });
@@ -94,6 +96,27 @@ router.get('/:postId', async (req,res) => {
     } 
 });
 
-//TODO: update post
+//TODO: update post - done
+router.put('/:postId', async (req, res) => {
+  try {
+    const updatedPost = await Post.update(
+      {
+        title: req.body.title,
+        content: req.body.content,
+      },
+      {
+        where: { id: req.params.postId},
+      }
+    );
+    
+    if (updatedPost[0]) {
+      res.status(200).json({ message: "Post updated" });
+    } else {
+      res.status(400).json({ message: "Insufficient data" });
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 module.exports = router;

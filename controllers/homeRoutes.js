@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['content'],
+          // attributes: ['content'],
           include: [User],
         },
       ],
@@ -77,11 +77,12 @@ router.get('/post/:postId', async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['content'],
           include: [User],
         },
       ],
     });
+
+  
 
     const post = postsData.get({ plain: true });
 
@@ -89,7 +90,8 @@ router.get('/post/:postId', async (req, res) => {
 
     res.render('post', {
       post,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      user_id: req.session.user_id,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -98,23 +100,24 @@ router.get('/post/:postId', async (req, res) => {
 
 
 //render users dashboard:
-router.get('/dashboard', withAuth, async (req, res) => {
+router.get('/dashboard', async (req, res) => {
 
   try {
     //ADDED code for setting session when sign in
-    let userId = null;
-    console.log(req?.user?.dataValues);
-    if (req?.user?.dataValues?.id) {
-      userId = req.user.dataValues.id;
-      req.session.save(() => {
-        req.session.user_id = req.user.dataValues.id;
-        req.session.logged_in = true;
-      });
-    }
+    // let userId = null;
+    // console.log(req?.user?.dataValues);
+    // if (req?.user?.dataValues?.id) {
+    //   userId = req.user.dataValues.id;
+    //   req.session.save(() => {
+    //     req.session.user_id = req.user.dataValues.id;
+    //     req.session.logged_in = true;
+    //   });
+    // }
 
     // Get all posts and JOIN with user data
     const postData = await Post.findAll({
       where: { user_id: req.session.user_id },
+      // where: { user_id: req.session.user_id },
       inclide: [
         {
           model: User,
@@ -122,9 +125,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ["content", "date_created", "user_id"],
+          // attributes: ["content", "date_created", "user_id"],
           include: [User]
-        }
+        },
       ],
     });
 
@@ -165,7 +168,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 
 //render New post view
-router.get('/post', withAuth, async (req, res) => {
+router.get('/post', async (req, res) => {
   try {
     res.render('newpost', {
       logged_in: req.session.logged_in,

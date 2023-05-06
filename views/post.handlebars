@@ -19,8 +19,25 @@
         <p>{{post.content}}</p>
       </div>
     </div>
+
+
     <footer class="card-footer">
-      
+     {{!-- Added comments --}}
+      {{#if post.comments.length}} 
+     <div class="card-content">
+      <p class="card-header-title">Comments:</p>
+       {{#each post.comments as |comment|}}
+      <div class="content">
+        {{comment.content}}
+        
+        <br>
+        Posted by {{comment.user.name}}
+        <br>
+        <time datetime="2016-1-1">{{format_date comment.date_created}}</time>
+      </div>
+      {{/each}}
+    </div>
+     {{/if}}  
     </footer>
 
 </div>
@@ -37,8 +54,20 @@
         ></textarea>
       </div>
     </div>
-  
+      {{!-- hidden inputs for addind comment --}}
+       <input 
+          type="hidden"
+          class="form-control"
+          id="user_id"
+          value={{user_id}}
+        />
+        <input
+          type="hidden"
+          class="form-control"
+          id="post_id"
+          value={{post.id}}
+        />
     <button type="submit" class="button is-large">Submit Comment</button>
   </form>
 
-<script src="./js/comment.js"></script>
+<script src="../js/comment.js"></script>
