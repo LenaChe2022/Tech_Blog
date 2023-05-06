@@ -26,36 +26,6 @@ const submitFormHandler = async (event) => {
 
 
 
-
-// const form = document.querySelector("#post-form");
-
-// function submitform(event) {
-//     event.preventDefault();
-
-//     const title = document.querySelector("#title");
-//     const content = document.querySelector("#description");
-//     // const user = session.user_id;
-
-//     const formData = new FormData();
-
-//     formData.append("title", title.value);
-//     formData.append("content", content.value);
-//     // formData.append("user_id", user);
-
-//     console.log(formData);
-
-//     fetch("/api/posts", {
-//         method: "POST",
-//         body: formData,
-//     })
-//       .then((response) => {
-//         console.log(response);
-//         alert("Post created successfully");
-//         window.location.replace('/dashboard');
-//       })
-//       .catch((err) => ("Something went wrong", err));
-// };
-
 document
     .querySelector(".newpostform")
     .addEventListener("submit", submitFormHandler);

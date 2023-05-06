@@ -16,8 +16,7 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      // console.log("you are inn")
-      // alert("You are logged In");
+      
       // If successful, redirect the browser to the profile page
       document.location.replace('/');
     } else {
