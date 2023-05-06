@@ -1,46 +1,55 @@
-<!-- Loop over each object in the posts array -->
+
 <h1 class="title is-1 is-lightr">My Posts</h1>
-{{#each posts as |post|}}
-<div class="card m-3">
-    <header class="card-header">
-      <p class="card-header-title">
-        <a href="/post/{{post.id}}">{{post.title}} </a>
-      </p>
-      <button class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </button>
-    </header>
-    <div class="card-content">
-      <div class="content">
-        {{post.content}}
-        
-        <br>
-        {{!-- Posted by {{post.user.name}} --}}
-        <br>
-        <time datetime="2016-1-1">{{format_date post.date_created}}</time>
+<div class="post-list">  
+  {{#each posts as |post|}}
+  <div class="card m-3">
+   <form class="box postform" id="post-form-{{post.id}}">
+    <div class="field is-large">
+      <label for="title" class="form-label">Title</label>
+      <div class="control">
+        <input
+          id="post-title-{{post.id}}"
+          name="title"
+          class="input"
+          type="text"
+          value="{{post.title}}"
+          {{!-- placeholder="Post Title" --}}
+        />
+        <input
+          id="post-user-id-{{post.id}}"
+          class="form-control"
+          type="hidden"
+          value="{{user_id}}"
+        />
+         <input
+          id="post-id"
+          class="form-control"
+          type="hidden"
+          value="{{post.id}}"
+        />
       </div>
     </div>
+  
+    <div class="field">
+      <label for="description" class="form-label">Content</label>
+      <div class="control">
+        <textarea
+          id="description-{{post.id}}"
+          name="description"
+          class="textarea"
+          type="text"
+        >{{post.content}}</textarea>
+      </div>
+      <br>
+      <time datetime="2016-1-1">Posted on: {{format_date post.date_created}}</time>
+    </div>
+  
+    <button type="submit" id="{{post.id}}" class="button is-medium is-warning is-light">UPDATE</button>
+    <button type="button" data-id="{{post.id}}" class="button is-medium is-danger is-light">DELETE</button>
+  </form>
 
-    <footer class="card-footer">
-       {{!-- Added comments --}}
-      {{#if post.comments.length}} 
-     <div class="card-content">
-      <p class="card-header-title">Comments:</p>
-       {{#each post.comments as |comment|}}
-      <div class="content">
-        {{comment.content}}
-        
-        <br>
-        Posted by {{comment.user.name}}
-        <br>
-        <time datetime="2016-1-1">{{format_date comment.date_created}}</time>
-      </div>
-      {{/each}}
-      </div>
-     {{/if}}
-    </footer>
-    
+  </div>
+  {{/each}}
 </div>
-{{/each}}
+
+  <script src="./js/updatepost.js"></script>
