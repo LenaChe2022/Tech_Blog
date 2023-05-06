@@ -45,7 +45,6 @@ router.get('/', async (req, res) => {
         },
         {
           model: Comment,
-          // attributes: ['content'],
           include: [User],
         },
       ],
@@ -65,7 +64,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// TODO include comments
+
 //Show one post
 router.get('/post/:postId', async (req, res) => {
   try {
@@ -103,16 +102,6 @@ router.get('/post/:postId', async (req, res) => {
 router.get('/dashboard', async (req, res) => {
 
   try {
-    //ADDED code for setting session when sign in
-    // let userId = null;
-    // console.log(req?.user?.dataValues);
-    // if (req?.user?.dataValues?.id) {
-    //   userId = req.user.dataValues.id;
-    //   req.session.save(() => {
-    //     req.session.user_id = req.user.dataValues.id;
-    //     req.session.logged_in = true;
-    //   });
-    // }
 
     // Get all posts and JOIN with user data
     const postData = await Post.findAll({
@@ -125,7 +114,6 @@ router.get('/dashboard', async (req, res) => {
         },
         {
           model: Comment,
-          // attributes: ["content", "date_created", "user_id"],
           include: [User]
         },
       ],
@@ -142,29 +130,6 @@ router.get('/dashboard', async (req, res) => {
     res.status(500).json(err);
   }
 }); 
-
-
-
-
-// Use withAuth middleware to prevent access to route
-// router.get('/dashboard', withAuth, async (req, res) => {
-//   try {
-//     // Find the logged in user based on the session ID
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Post }],
-//     });
-
-//     const user = userData.get({ plain: true });
-
-//     res.render('dashboard', {
-//       ...user,
-//       logged_in: true
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 
 //render New post view
