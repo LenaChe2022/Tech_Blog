@@ -17,6 +17,7 @@
     </header>
 
     <div class="card-content">
+       {{#if ../logged_in}}
       <div class="content">
         {{post.content}}
         
@@ -25,9 +26,16 @@
         <br>
         <time datetime="2016-1-1">{{format_date post.date_created}}</time>
       </div>
+       {{else}}
+      <div class="content"> Login to read this post </div>
+      {{/if}}
     </div>
 
-       {{!-- Added comments --}}
+       
+
+     {{#if ../logged_in}}
+    <footer class="card-footer">
+        {{!-- Added comments --}}
       {{#if post.comments.length}} 
      <div class="card-content">
       <p class="card-header-title">Comments:</p>
@@ -43,11 +51,10 @@
       {{/each}}
     </div>
      {{/if}}
-
- 
-    <footer class="card-footer">
-      
     </footer>
+    {{else}}
+    <footer class="card-footer"></footer>
+    {{/if}}
 </div>
 {{/each}}
 
